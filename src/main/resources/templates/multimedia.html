@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/links :: head('Multimedia')"></head>
+<body>
+	<!-- Left Panel -->
+	<div th:replace="fragments/sidebar :: side"></div>
+	<!-- Header-->
+	<div id="right-panel" class="right-panel">
+		<header th:replace="fragments/header :: headerFrag"></header>
+		<!-- /header -->
+		
+		<!-- file upload -->
+		<!-- sec:authorize="hasRole('ROLE_USER')" -->
+		<p hidden="hidden" id = "projectId" th:text="${projectId}"></p>
+		<div class="form-group" style="margin: 20px;">
+			<label>Please enter your text</label>
+			<textarea class="form-control rounded-0" id="userNote" rows="10"
+				placeholder="Type here ..."></textarea>
+		</div>
+		<button style="margin-left: 20px;" class="btn btn-primary" onClick= "addMultimedia()">Submit Text</button>
+
+		<div  class="card" style="margin:20px;" id="upload">
+			<div class="card-header">Upload Document</div>
+			<div class="card-block" id="fileUpload">
+				<form enctype="multipart/form-data">
+					<div class="form-group">
+						<div class="file-loading">
+							<input id="file-1" type="file" class="file"
+								data-overwrite-initial="false" name="file"
+								data-min-file-count="1"/>
+						</div>
+					</div>
+					<hr/>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<div th:replace="fragments/footer :: foot"></div>
+
+	<script>
+		$(document).ready(function() {
+			$(function() {
+				var token = $("meta[name='_csrf']").attr("content");
+				var header = $("meta[name='_csrf_header']").attr("content");
+				$(document).ajaxSend(function(e, xhr, options) {
+					xhr.setRequestHeader(header, token);
+				});
+
+			});
+			
+		});
+		
+		
+		function addMultimedia() {
+			var note = $("#userNote").val();
+			var multimediaDto = {
+					text : note,
+					createdBy : $('#username').text(),
+					modifiedBy : $('#username').text(),
+					project : {
+						id : $('#projectId').text()
+					}
+			}
+			alert("jell")
+			$.ajax({
+				headers : {
+					'Accept' : 'application/json',
+					'Content-Type' : 'application/json'
+				},
+				url : '/addMultimedia',
+				type : 'POST',
+				data : JSON.stringify(multimediaDto),
+				dataType : 'json',
+				success : function(data) {
+					location.reload();
+				},
+				xhrFields : {
+					withCredentials : true
+				}
+			});
+		}
+		
+
+		$("#file-1").fileinput({
+			theme : 'fa',
+			uploadUrl : "[[ @{ /addMultimedia}]]",
+			uploadAsync : true,
+			allowedFileExtensions : [ 'jpg', 'png' ],
+			overwriteInitial : false,
+			maxFileSize : 5000,
+			maxFilesNum : 1,
+			allowedFileTypes: ['image'],
+			slugCallback : function(filename) {
+				return filename.replace('(', '_').replace(']', '_');
+			},
+			uploadExtraData: (function($) {
+
+	            var multimediaDto = {
+	            		text : $('')
+	            };
+	            
+	            return multimediaDto;
+
+	    })(jQuery),
+		});
+
+		$('#file-1').on('filebatchuploadcomplete',
+				function(event, data, previewId, index) {
+					
+				});
+		
+		
+	</script>
+</body>
+</html>

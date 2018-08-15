@@ -1,0 +1,19 @@
+server:
+  port: 9090
+  
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      client-id: clientId
+      client-secret: secret
+      access-token-uri: http://localhost:8501/auth/oauth/token
+      user-authorization-uri: http://localhost:8501/auth/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:8501/auth/getCurrentUser
+      
+spring:
+  http:
+    multipart:
+      max-file-size: 5000KB
