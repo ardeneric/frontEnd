@@ -48,7 +48,7 @@ public class Resource {
 		}
 		
 		HttpEntity<?> requestEntity = new HttpEntity<>(projectDto, requestHeaders);
-		String url = "http://localhost:8761/api/db-service/rest/project/save";
+		String url = "https://notewitch-eureka.herokuapp.com/api/db-service/rest/project/save";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 		ResponseEntity<ProjectDto> response = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, requestEntity, ProjectDto.class);
 		return response.getBody();
@@ -66,7 +66,7 @@ public class Resource {
 		groupDto.setCreatedDate(LocalDateTime.now());
 		groupDto.setModifiedDate(LocalDateTime.now());
 		HttpEntity<?> requestEntityOne = new HttpEntity<>(groupDto, requestHeaders);
-		String groupUrl = "http://localhost:8761/api/db-service/rest/group/save";
+		String groupUrl = "https://notewitch-eureka.herokuapp.com/api/db-service/rest/group/save";
 		UriComponentsBuilder builderOne = UriComponentsBuilder.fromHttpUrl(groupUrl);
 		ResponseEntity<GroupDto> responseOne = restTemplate.exchange(builderOne.toUriString(), HttpMethod.POST, requestEntityOne, GroupDto.class);
 		
@@ -77,7 +77,7 @@ public class Resource {
 		bridgeDto.setRoleId(roleDto);
 		bridgeDto.setUserId(groupDto.getUser());
 		HttpEntity<?> requestEntityTwo = new HttpEntity<>(bridgeDto, requestHeaders);
-		String bridgeUrl = "http://localhost:8761/api/db-service/rest/bridge/save";
+		String bridgeUrl = "https://notewitch-eureka.herokuapp.com/api/db-service/rest/bridge/save";
 		UriComponentsBuilder builderTwo = UriComponentsBuilder.fromHttpUrl(bridgeUrl);
 		restTemplate.exchange(builderTwo.toUriString(), HttpMethod.POST, requestEntityTwo, UserGroupBridgeDto.class);
 		return responseOne.getBody();
@@ -92,7 +92,7 @@ public class Resource {
 		}
 		
 		HttpEntity<?> requestEntityOne = new HttpEntity<>(userGroupBridgeDto, requestHeaders);
-		String bridgeUrl = "http://localhost:8761/api/db-service/rest/bridge/save";
+		String bridgeUrl = "https://notewitch-eureka.herokuapp.com/api/db-service/rest/bridge/save";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(bridgeUrl);
 		ResponseEntity<UserGroupBridgeDto> responseOne = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, requestEntityOne, UserGroupBridgeDto.class);
 		return responseOne.getBody();
@@ -112,7 +112,7 @@ public class Resource {
 		}
 		
 		HttpEntity<?> requestEntityOne = new HttpEntity<>(dto, requestHeaders);
-		String bridgeUrl = "http://localhost:8761/api/db-service/rest/multimedia/save";
+		String bridgeUrl = "https://notewitch-eureka.herokuapp.com/api/db-service/rest/multimedia/save";
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(bridgeUrl);
 		ResponseEntity<MultimediaDto> responseOne = restTemplate.exchange(builder.toUriString(), HttpMethod.POST, requestEntityOne, MultimediaDto.class);
 		return responseOne.getBody();

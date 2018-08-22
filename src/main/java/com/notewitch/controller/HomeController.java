@@ -52,7 +52,7 @@ public class HomeController {
 			requestHeaders.add(HttpHeaders.COOKIE, cookie.getName() + "=" + cookie.getValue());
 		}
 		HttpEntity<?> requestEntity = new HttpEntity<>(requestHeaders);
-		String url = "http://localhost:8761/api/db-service/rest/group/" + id;
+		String url = "https://notewitch-eureka.herokuapp.com/api/db-service/rest/group/" + id;
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 		ResponseEntity<GroupDto> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, GroupDto.class);
 		model.addAttribute("group", response.getBody());
