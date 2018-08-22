@@ -80,7 +80,7 @@
 			var username = $('#username').text();
 			
 			$.ajax({
-			    url: 'http://localhost:8761/api/db-service/rest/user/' + username,
+			    url: 'https://notewitch-eureka.herokuapp.com/api/db-service/rest/user/' + username,
 			    type: 'GET',
 			    success: function(data) { 
 			    	$('tbody').empty();
