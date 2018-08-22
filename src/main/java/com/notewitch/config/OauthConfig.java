@@ -19,7 +19,7 @@ public class OauthConfig extends WebSecurityConfigurerAdapter{
 			.authenticated()
 			.and()
 			.logout()
-            .logoutSuccessUrl("https://notewitch-auth-server.herokuapp.com//auth/exit");;
+            .logoutSuccessUrl("https://notewitch-auth-server.herokuapp.com/auth/exit");;
 			
 	}
 	
